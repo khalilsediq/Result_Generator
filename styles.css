@@ -210,131 +210,138 @@ header p {
     flex-wrap: wrap;
 }
 
-/* Result Card Styles */
+/* Result Card Styles - Exact Image Match */
 .result-card {
-    padding: 40px;
+    padding: 20px;
     background: white;
     font-family: 'Times New Roman', serif;
-    line-height: 1.4;
+    line-height: 1.6;
+    min-height: 100vh;
 }
 
 .result-card-content {
     max-width: 800px;
     margin: 0 auto;
     border: 2px solid #333;
-    padding: 30px;
+    padding: 40px;
     background: white;
+    min-height: calc(100vh - 40px);
 }
 
-/* Header Section */
+/* Header Section - Exact Image Match */
 .result-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
 }
 
 .school-branding {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 20px;
 }
 
 .school-logo {
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 70px;
     border: 2px solid #333;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 24px;
+    font-size: 28px;
     font-weight: bold;
 }
 
 .school-info h2 {
-    font-size: 1.8rem;
+    font-size: 2rem;
     font-style: italic;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
     color: #333;
 }
 
 .school-info p {
-    font-size: 0.9rem;
+    font-size: 1rem;
     color: #666;
-    margin-bottom: 2px;
+    margin-bottom: 3px;
 }
 
 .school-name-large {
-    font-size: 2.5rem;
+    font-size: 3rem;
     font-family: 'Brush Script MT', cursive;
     color: #333;
     text-align: right;
 }
 
-/* Result Details */
+/* Result Details - Exact Image Match */
 .result-details {
-    margin-bottom: 30px;
+    margin-bottom: 40px;
 }
 
 .result-details h3 {
-    font-size: 1.4rem;
-    margin-bottom: 15px;
+    font-size: 1.6rem;
+    margin-bottom: 20px;
     color: #333;
 }
 
 .details-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 20px;
+    gap: 25px;
 }
 
 .detail-item {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 15px;
 }
 
 .detail-item label {
     font-weight: bold;
-    min-width: 100px;
+    min-width: 120px;
+    font-size: 1.1rem;
 }
 
 .detail-item span {
     border-bottom: 1px solid #333;
     flex: 1;
-    padding: 5px 0;
+    padding: 8px 0;
+    font-size: 1.1rem;
 }
 
-/* Academic Performance Table */
+/* Academic Performance Table - Exact Image Match */
 .academic-performance {
-    margin-bottom: 30px;
+    margin-bottom: 40px;
 }
 
 .academic-performance h3 {
     text-align: center;
-    font-size: 1.3rem;
-    margin-bottom: 15px;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
     color: #333;
 }
 
 .performance-table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
+    font-size: 1.1rem;
 }
 
 .performance-table th {
     background: #f0f0f0;
-    padding: 12px 8px;
+    padding: 15px 10px;
     text-align: center;
     border: 1px solid #333;
     font-weight: bold;
+    font-size: 1.1rem;
 }
 
 .performance-table td {
-    padding: 10px 8px;
+    padding: 12px 10px;
     border: 1px solid #333;
     text-align: center;
+    font-size: 1.1rem;
 }
 
 .performance-table td:first-child {
@@ -342,113 +349,120 @@ header p {
     font-weight: bold;
 }
 
-/* Overall Summary Table */
+/* Overall Summary Table - Exact Image Match */
 .overall-summary {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
+    font-size: 1.1rem;
 }
 
 .overall-summary th {
     background: #f0f0f0;
-    padding: 10px 8px;
+    padding: 12px 10px;
     text-align: center;
     border: 1px solid #333;
     font-weight: bold;
+    font-size: 1.1rem;
 }
 
 .overall-summary td {
-    padding: 8px;
+    padding: 10px;
     border: 1px solid #333;
     text-align: center;
+    font-size: 1.1rem;
 }
 
-/* General Progress Section */
+/* General Progress Section - Exact Image Match */
 .general-progress {
-    margin-bottom: 30px;
+    margin-bottom: 40px;
 }
 
 .general-progress h3 {
     text-align: center;
-    font-size: 1.3rem;
-    margin-bottom: 15px;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
     color: #333;
 }
 
 .progress-table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+    font-size: 1.1rem;
 }
 
 .progress-table th {
     background: #f0f0f0;
-    padding: 10px 8px;
+    padding: 12px 10px;
     text-align: center;
     border: 1px solid #333;
     font-weight: bold;
+    font-size: 1.1rem;
 }
 
 .progress-table td {
-    padding: 8px;
+    padding: 10px;
     border: 1px solid #333;
     text-align: center;
+    font-size: 1.1rem;
 }
 
 .grading-key {
-    font-size: 0.9rem;
+    font-size: 1rem;
     color: #666;
 }
 
 .grading-key span {
-    margin-right: 15px;
+    margin-right: 20px;
 }
 
-/* Comments Sections */
+/* Comments Sections - Exact Image Match */
 .comments-section {
-    margin-bottom: 30px;
+    margin-bottom: 40px;
 }
 
 .comments-section h3 {
     text-align: center;
-    font-size: 1.3rem;
-    margin-bottom: 15px;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
     color: #333;
 }
 
 .comment-box {
     border: 1px solid #333;
-    min-height: 80px;
-    padding: 10px;
+    min-height: 100px;
+    padding: 15px;
     background: #fafafa;
 }
 
-/* Comments and Signatures */
+/* Comments and Signatures - Exact Image Match */
 .comments-signatures {
-    margin-top: 30px;
+    margin-top: 40px;
 }
 
 .comment-line {
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 .comment-line label {
     font-weight: bold;
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
+    font-size: 1.1rem;
 }
 
 .comment-line span {
     border-bottom: 1px solid #333;
     display: block;
-    min-height: 20px;
+    min-height: 25px;
 }
 
 .signatures {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 20px;
-    margin-top: 30px;
+    gap: 25px;
+    margin-top: 40px;
 }
 
 .signature-item {
@@ -457,12 +471,12 @@ header p {
 
 .signature-line {
     border-bottom: 1px solid #333;
-    height: 30px;
-    margin-bottom: 5px;
+    height: 35px;
+    margin-bottom: 8px;
 }
 
 .signature-label {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     color: #666;
 }
 
@@ -476,10 +490,12 @@ header p {
     }
     
     .result-card {
+        min-height: 100vh;
         padding: 20px;
     }
     
     .result-card-content {
+        min-height: calc(100vh - 40px);
         padding: 20px;
     }
     
@@ -557,63 +573,78 @@ header p {
         padding: 15px;
     }
     
+    /* Maintain exact image layout on mobile */
+    .result-card {
+        min-height: 100vh;
+        padding: 15px;
+    }
+    
+    .result-card-content {
+        min-height: calc(100vh - 30px);
+        padding: 20px;
+    }
+    
     .result-header {
         flex-direction: column;
-        gap: 20px;
+        gap: 15px;
         align-items: center;
+        margin-bottom: 20px;
     }
     
     .school-branding {
         flex-direction: column;
         text-align: center;
-        gap: 10px;
+        gap: 8px;
     }
     
     .school-logo {
-        width: 50px;
-        height: 50px;
+        width: 45px;
+        height: 45px;
         font-size: 20px;
         margin: 0 auto;
     }
     
     .school-info h2 {
-        font-size: 1.5rem;
+        font-size: 1.4rem;
         text-align: center;
     }
     
     .school-info p {
         text-align: center;
+        font-size: 0.7rem;
     }
     
     .school-name-large {
         text-align: center;
-        font-size: 2.2rem;
+        font-size: 1.8rem;
     }
     
     .details-grid {
         grid-template-columns: 1fr;
-        gap: 15px;
+        gap: 12px;
     }
     
     .detail-item {
         flex-direction: column;
         align-items: flex-start;
-        gap: 5px;
+        gap: 4px;
     }
     
     .detail-item label {
         min-width: auto;
         font-weight: bold;
+        font-size: 0.8rem;
     }
     
     .detail-item span {
         width: 100%;
-        min-height: 25px;
+        min-height: 20px;
+        font-size: 0.8rem;
     }
     
     .signatures {
         grid-template-columns: 1fr 1fr;
-        gap: 15px;
+        gap: 12px;
     }
     
     .performance-table,
@@ -628,24 +659,52 @@ header p {
     .overall-summary td,
     .progress-table th,
     .progress-table td {
-        padding: 8px 4px;
+        padding: 6px 4px;
+        font-size: 0.7rem;
     }
     
     .academic-performance h3,
     .general-progress h3,
     .comments-section h3 {
-        font-size: 1.2rem;
-        margin-bottom: 12px;
+        font-size: 1rem;
+        margin-bottom: 8px;
     }
     
     .grading-key {
-        font-size: 0.8rem;
+        font-size: 0.7rem;
         text-align: center;
     }
     
     .grading-key span {
         display: block;
-        margin-bottom: 5px;
+        margin-bottom: 3px;
+    }
+    
+    .comment-box {
+        min-height: 40px;
+        padding: 6px;
+    }
+    
+    .comment-line {
+        margin-bottom: 8px;
+    }
+    
+    .comment-line label {
+        font-size: 0.7rem;
+        margin-bottom: 2px;
+    }
+    
+    .comment-line span {
+        min-height: 15px;
+    }
+    
+    .signature-line {
+        height: 18px;
+        margin-bottom: 3px;
+    }
+    
+    .signature-label {
+        font-size: 0.6rem;
     }
 }
 
@@ -699,58 +758,65 @@ header p {
         font-size: 14px;
     }
     
+    /* Single page result card for small mobile */
     .result-card {
-        padding: 10px;
+        min-height: 100vh;
+        padding: 8px;
     }
     
     .result-card-content {
-        padding: 12px;
-        border-width: 1px;
+        min-height: calc(100vh - 16px);
+        padding: 8px;
     }
     
     .school-info h2 {
-        font-size: 1.3rem;
+        font-size: 1.1rem;
     }
     
     .school-name-large {
-        font-size: 1.8rem;
+        font-size: 1.4rem;
     }
     
     .result-details h3 {
-        font-size: 1.2rem;
-        margin-bottom: 12px;
+        font-size: 1rem;
+        margin-bottom: 8px;
     }
     
     .details-grid {
-        gap: 12px;
+        gap: 8px;
     }
     
     .detail-item {
-        gap: 3px;
+        gap: 2px;
     }
     
     .detail-item span {
-        min-height: 20px;
-        padding: 3px 0;
+        min-height: 15px;
+        padding: 2px 0;
+        font-size: 0.65rem;
+    }
+    
+    .detail-item label {
+        font-size: 0.65rem;
     }
     
     .signatures {
         grid-template-columns: 1fr;
-        gap: 12px;
+        gap: 8px;
     }
     
     .signature-line {
-        height: 25px;
+        height: 10px;
     }
     
     .signature-label {
-        font-size: 0.7rem;
+        font-size: 0.45rem;
     }
     
     .performance-table,
     .overall-summary,
     .progress-table {
-        font-size: 0.7rem;
+        font-size: 0.55rem;
     }
     
     .performance-table th,
@@ -759,32 +825,42 @@ header p {
     .overall-summary td,
     .progress-table th,
     .progress-table td {
-        padding: 6px 3px;
+        padding: 1px;
+        font-size: 0.5rem;
     }
     
     .academic-performance h3,
     .general-progress h3,
     .comments-section h3 {
-        font-size: 1.1rem;
-        margin-bottom: 10px;
+        font-size: 0.8rem;
+        margin-bottom: 4px;
     }
     
     .comment-box {
-        min-height: 60px;
-        padding: 8px;
+        min-height: 20px;
+        padding: 2px;
     }
     
     .comment-line {
-        margin-bottom: 15px;
+        margin-bottom: 4px;
     }
     
     .comment-line label {
-        font-size: 0.9rem;
-        margin-bottom: 3px;
+        font-size: 0.55rem;
+        margin-bottom: 1px;
     }
     
     .comment-line span {
-        min-height: 18px;
+        min-height: 8px;
+    }
+    
+    .grading-key {
+        font-size: 0.5rem;
+    }
+    
+    .grading-key span {
+        margin-right: 4px;
+        margin-bottom: 1px;
     }
 }
 
@@ -829,10 +905,12 @@ header p {
     }
     
     .result-card {
+        min-height: 100vh;
         padding: 8px;
     }
     
     .result-card-content {
+        min-height: calc(100vh - 16px);
         padding: 10px;
     }
     
@@ -886,10 +964,12 @@ header p {
     }
     
     .result-card {
+        min-height: 100vh;
         padding: 15px;
     }
     
     .result-card-content {
+        min-height: calc(100vh - 30px);
         padding: 15px;
     }
     
@@ -1016,7 +1096,7 @@ header p {
     }
 }
 
-/* Print Styles */
+/* Print Styles - Exact Image Match */
 @media print {
     body {
         background: white;
@@ -1039,10 +1119,97 @@ header p {
     
     .result-card {
         padding: 0;
+        min-height: 100vh;
+        page-break-after: avoid;
+        page-break-inside: avoid;
     }
     
     .result-card-content {
         border: none;
-        padding: 20px;
+        padding: 40px;
+        min-height: 100vh;
+        font-size: 1.1rem;
+        line-height: 1.6;
+    }
+    
+    /* Maintain exact image layout for print */
+    .result-header {
+        margin-bottom: 30px;
+    }
+    
+    .result-details {
+        margin-bottom: 30px;
+    }
+    
+    .academic-performance {
+        margin-bottom: 30px;
+    }
+    
+    .general-progress {
+        margin-bottom: 30px;
+    }
+    
+    .comments-section {
+        margin-bottom: 30px;
+    }
+    
+    .comments-signatures {
+        margin-top: 30px;
+    }
+    
+    /* Exact image font sizes for print */
+    .school-info h2 {
+        font-size: 1.8rem;
+    }
+    
+    .school-name-large {
+        font-size: 2.5rem;
+    }
+    
+    .result-details h3 {
+        font-size: 1.4rem;
+    }
+    
+    .academic-performance h3,
+    .general-progress h3,
+    .comments-section h3 {
+        font-size: 1.3rem;
+    }
+    
+    .performance-table,
+    .overall-summary,
+    .progress-table {
+        font-size: 1rem;
+    }
+    
+    .performance-table th,
+    .performance-table td,
+    .overall-summary th,
+    .overall-summary td,
+    .progress-table th,
+    .progress-table td {
+        padding: 10px 8px;
+        font-size: 1rem;
+    }
+    
+    .grading-key {
+        font-size: 0.9rem;
+    }
+    
+    .comment-box {
+        min-height: 80px;
+        padding: 10px;
+    }
+    
+    .comment-line label {
+        font-size: 1rem;
+    }
+    
+    .signature-line {
+        height: 30px;
+    }
+    
+    .signature-label {
+        font-size: 0.8rem;
     }
 } 
