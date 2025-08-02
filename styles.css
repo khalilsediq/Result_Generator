@@ -1,3 +1,11 @@
+/* CSS Variables for Mobile Optimization */
+:root {
+    --transition-duration: 0.3s;
+    --border-radius: 8px;
+    --box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    --mobile-padding: 15px;
+}
+
 /* Reset and Base Styles */
 * {
     margin: 0;
@@ -458,7 +466,9 @@ header p {
     color: #666;
 }
 
-/* Responsive Design */
+/* Enhanced Mobile Responsive Design */
+
+/* Large Tablets and Small Laptops */
 @media (max-width: 1024px) {
     .main-content {
         grid-template-columns: 1fr;
@@ -472,8 +482,13 @@ header p {
     .result-card-content {
         padding: 20px;
     }
+    
+    .container {
+        padding: 15px;
+    }
 }
 
+/* Tablets and Medium Screens */
 @media (max-width: 768px) {
     .container {
         padding: 10px;
@@ -481,42 +496,119 @@ header p {
     
     header h1 {
         font-size: 2rem;
+        margin-bottom: 8px;
+    }
+    
+    header p {
+        font-size: 1rem;
     }
     
     .input-section {
         padding: 20px;
+        margin-bottom: 20px;
+    }
+    
+    .input-section h2 {
+        font-size: 1.3rem;
+        margin-bottom: 20px;
     }
     
     .form-row {
         grid-template-columns: 1fr;
         gap: 15px;
+        margin-bottom: 15px;
+    }
+    
+    .form-group input,
+    .form-group select {
+        padding: 15px;
+        font-size: 16px; /* Prevents zoom on iOS */
+    }
+    
+    .subject-input {
+        padding: 15px;
     }
     
     .subject-row {
         grid-template-columns: 1fr;
         gap: 10px;
+        margin-bottom: 12px;
+    }
+    
+    .subject-row input {
+        padding: 12px;
+        font-size: 16px;
     }
     
     .form-actions {
         flex-direction: column;
+        gap: 12px;
+    }
+    
+    .btn {
+        padding: 15px 20px;
+        font-size: 16px;
+        justify-content: center;
     }
     
     .result-actions {
         flex-direction: column;
+        gap: 10px;
+        padding: 15px;
     }
     
     .result-header {
         flex-direction: column;
         gap: 20px;
+        align-items: center;
+    }
+    
+    .school-branding {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+    
+    .school-logo {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+        margin: 0 auto;
+    }
+    
+    .school-info h2 {
+        font-size: 1.5rem;
+        text-align: center;
+    }
+    
+    .school-info p {
+        text-align: center;
     }
     
     .school-name-large {
         text-align: center;
+        font-size: 2.2rem;
     }
     
     .details-grid {
         grid-template-columns: 1fr;
         gap: 15px;
+    }
+    
+    .detail-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+    
+    .detail-item label {
+        min-width: auto;
+        font-weight: bold;
+    }
+    
+    .detail-item span {
+        width: 100%;
+        min-height: 25px;
     }
     
     .signatures {
@@ -527,7 +619,7 @@ header p {
     .performance-table,
     .overall-summary,
     .progress-table {
-        font-size: 0.8rem;
+        font-size: 0.75rem;
     }
     
     .performance-table th,
@@ -536,29 +628,391 @@ header p {
     .overall-summary td,
     .progress-table th,
     .progress-table td {
-        padding: 6px 4px;
+        padding: 8px 4px;
+    }
+    
+    .academic-performance h3,
+    .general-progress h3,
+    .comments-section h3 {
+        font-size: 1.2rem;
+        margin-bottom: 12px;
+    }
+    
+    .grading-key {
+        font-size: 0.8rem;
+        text-align: center;
+    }
+    
+    .grading-key span {
+        display: block;
+        margin-bottom: 5px;
     }
 }
 
+/* Mobile Phones - Small Screens */
 @media (max-width: 480px) {
+    .container {
+        padding: 8px;
+    }
+    
+    header h1 {
+        font-size: 1.8rem;
+        margin-bottom: 6px;
+    }
+    
+    header p {
+        font-size: 0.9rem;
+    }
+    
+    .input-section {
+        padding: 15px;
+        border-radius: 10px;
+    }
+    
+    .input-section h2 {
+        font-size: 1.2rem;
+        margin-bottom: 15px;
+    }
+    
+    .form-group input,
+    .form-group select {
+        padding: 12px;
+        font-size: 16px;
+    }
+    
+    .subject-input {
+        padding: 12px;
+    }
+    
+    .subject-input h3 {
+        font-size: 1.1rem;
+        margin-bottom: 12px;
+    }
+    
+    .subject-row input {
+        padding: 10px;
+        font-size: 16px;
+    }
+    
+    .btn {
+        padding: 12px 16px;
+        font-size: 14px;
+    }
+    
     .result-card {
         padding: 10px;
+    }
+    
+    .result-card-content {
+        padding: 12px;
+        border-width: 1px;
+    }
+    
+    .school-info h2 {
+        font-size: 1.3rem;
+    }
+    
+    .school-name-large {
+        font-size: 1.8rem;
+    }
+    
+    .result-details h3 {
+        font-size: 1.2rem;
+        margin-bottom: 12px;
+    }
+    
+    .details-grid {
+        gap: 12px;
+    }
+    
+    .detail-item {
+        gap: 3px;
+    }
+    
+    .detail-item span {
+        min-height: 20px;
+        padding: 3px 0;
+    }
+    
+    .signatures {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    
+    .signature-line {
+        height: 25px;
+    }
+    
+    .signature-label {
+        font-size: 0.7rem;
+    }
+    
+    .performance-table,
+    .overall-summary,
+    .progress-table {
+        font-size: 0.7rem;
+    }
+    
+    .performance-table th,
+    .performance-table td,
+    .overall-summary th,
+    .overall-summary td,
+    .progress-table th,
+    .progress-table td {
+        padding: 6px 3px;
+    }
+    
+    .academic-performance h3,
+    .general-progress h3,
+    .comments-section h3 {
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+    }
+    
+    .comment-box {
+        min-height: 60px;
+        padding: 8px;
+    }
+    
+    .comment-line {
+        margin-bottom: 15px;
+    }
+    
+    .comment-line label {
+        font-size: 0.9rem;
+        margin-bottom: 3px;
+    }
+    
+    .comment-line span {
+        min-height: 18px;
+    }
+}
+
+/* Extra Small Mobile Devices */
+@media (max-width: 360px) {
+    .container {
+        padding: 5px;
+    }
+    
+    header h1 {
+        font-size: 1.6rem;
+    }
+    
+    header p {
+        font-size: 0.85rem;
+    }
+    
+    .input-section {
+        padding: 12px;
+    }
+    
+    .input-section h2 {
+        font-size: 1.1rem;
+    }
+    
+    .form-group input,
+    .form-group select {
+        padding: 10px;
+    }
+    
+    .subject-input {
+        padding: 10px;
+    }
+    
+    .subject-input h3 {
+        font-size: 1rem;
+    }
+    
+    .btn {
+        padding: 10px 14px;
+        font-size: 13px;
+    }
+    
+    .result-card {
+        padding: 8px;
+    }
+    
+    .result-card-content {
+        padding: 10px;
+    }
+    
+    .school-info h2 {
+        font-size: 1.2rem;
+    }
+    
+    .school-name-large {
+        font-size: 1.6rem;
+    }
+    
+    .performance-table,
+    .overall-summary,
+    .progress-table {
+        font-size: 0.65rem;
+    }
+    
+    .performance-table th,
+    .performance-table td,
+    .overall-summary th,
+    .overall-summary td,
+    .progress-table th,
+    .progress-table td {
+        padding: 4px 2px;
+    }
+    
+    .academic-performance h3,
+    .general-progress h3,
+    .comments-section h3 {
+        font-size: 1rem;
+    }
+    
+    .grading-key {
+        font-size: 0.75rem;
+    }
+    
+    .grading-key span {
+        margin-bottom: 3px;
+    }
+}
+
+/* Landscape Mobile Orientation */
+@media (max-width: 768px) and (orientation: landscape) {
+    .main-content {
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+    }
+    
+    .input-section {
+        padding: 15px;
+    }
+    
+    .result-card {
+        padding: 15px;
     }
     
     .result-card-content {
         padding: 15px;
     }
     
-    .school-info h2 {
-        font-size: 1.4rem;
+    .form-row {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
     }
     
-    .school-name-large {
-        font-size: 2rem;
+    .subject-row {
+        grid-template-columns: 2fr 1fr;
+        gap: 8px;
     }
     
-    .signatures {
-        grid-template-columns: 1fr;
+    .form-actions {
+        flex-direction: row;
+        gap: 10px;
+    }
+    
+    .result-actions {
+        flex-direction: row;
+        gap: 8px;
+    }
+    
+    .btn {
+        padding: 10px 15px;
+        font-size: 14px;
+    }
+}
+
+/* Mobile Loader */
+.mobile-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    color: white;
+}
+
+.loader-spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top: 4px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.mobile-loader p {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+/* Touch Device Optimizations */
+@media (hover: none) and (pointer: coarse) {
+    .btn {
+        min-height: 44px; /* Minimum touch target size */
+    }
+    
+    .form-group input,
+    .form-group select,
+    .subject-row input {
+        min-height: 44px;
+    }
+    
+    .form-group label {
+        margin-bottom: 10px;
+    }
+    
+    .subject-row label {
+        margin-bottom: 8px;
+    }
+    
+    /* Improve touch targets */
+    .form-group input:focus,
+    .form-group select:focus,
+    .subject-row input:focus {
+        outline: 2px solid #667eea;
+        outline-offset: 2px;
+    }
+    
+    /* Add haptic feedback simulation */
+    .btn:active {
+        transform: scale(0.98);
+        transition: transform 0.1s ease;
+    }
+}
+
+/* Mobile Performance Optimizations */
+@media (max-width: 768px) {
+    /* Reduce animations for better performance */
+    * {
+        transition-duration: var(--transition-duration);
+    }
+    
+    /* Optimize scrolling */
+    .main-content {
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Improve text rendering */
+    body {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+    }
+    
+    /* Optimize images and icons */
+    .school-logo {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
     }
 }
 

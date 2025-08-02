@@ -374,17 +374,28 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        // Generate and display result
-        const resultCard = document.getElementById('resultCard');
-        resultCard.innerHTML = generateResultCard(formData);
+        // Show mobile loader for better UX
+        const mobileLoader = document.getElementById('mobileLoader');
+        if (window.innerWidth <= 768) {
+            mobileLoader.style.display = 'flex';
+        }
         
-        // Show result section
-        document.getElementById('resultSection').style.display = 'block';
-        
-        // Scroll to result
-        document.getElementById('resultSection').scrollIntoView({ 
-            behavior: 'smooth' 
-        });
+        // Generate result with slight delay for mobile
+        setTimeout(() => {
+            const resultCard = document.getElementById('resultCard');
+            resultCard.innerHTML = generateResultCard(formData);
+            
+            // Hide loader
+            mobileLoader.style.display = 'none';
+            
+            // Show result section
+            document.getElementById('resultSection').style.display = 'block';
+            
+            // Scroll to result
+            document.getElementById('resultSection').scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+        }, window.innerWidth <= 768 ? 500 : 100);
     });
 
     // Handle form reset
@@ -410,5 +421,97 @@ function validateMarks(input) {
 document.addEventListener('input', function(e) {
     if (e.target.classList.contains('subject-mark')) {
         validateMarks(e.target);
+    }
+});
+
+// Mobile-specific enhancements
+document.addEventListener('DOMContentLoaded', function() {
+    // Prevent zoom on input focus for iOS
+    const inputs = document.querySelectorAll('input[type="number"], input[type="text"], select');
+    inputs.forEach(input => {
+        input.addEventListener('focus', function() {
+            if (window.innerWidth <= 768) {
+                this.style.fontSize = '16px';
+            }
+        });
+        
+        input.addEventListener('blur', function() {
+            if (window.innerWidth <= 768) {
+                this.style.fontSize = '';
+            }
+        });
+    });
+
+    // Add touch feedback for buttons
+    const buttons = document.querySelectorAll('.btn');
+    buttons.forEach(button => {
+        button.addEventListener('touchstart', function() {
+            this.style.transform = 'scale(0.95)';
+        });
+        
+        button.addEventListener('touchend', function() {
+            this.style.transform = '';
+        });
+    });
+
+    // Handle orientation change
+    window.addEventListener('orientationchange', function() {
+        setTimeout(() => {
+            // Recalculate layout after orientation change
+            const resultSection = document.getElementById('resultSection');
+            if (resultSection.style.display !== 'none') {
+                resultSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        }, 500);
+    });
+
+    // Add swipe gesture support for mobile
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    document.addEventListener('touchstart', function(e) {
+        touchStartX = e.changedTouches[0].screenX;
+    });
+    
+    document.addEventListener('touchend', function(e) {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    });
+    
+    function handleSwipe() {
+        const swipeThreshold = 50;
+        const diff = touchStartX - touchEndX;
+        
+        if (Math.abs(diff) > swipeThreshold) {
+            if (diff > 0) {
+                // Swipe left - could be used for navigation
+                console.log('Swipe left detected');
+            } else {
+                // Swipe right - could be used for navigation
+                console.log('Swipe right detected');
+            }
+        }
+    }
+
+    // Optimize for mobile performance
+    if (window.innerWidth <= 768) {
+        // Reduce animations on mobile for better performance
+        document.body.style.setProperty('--transition-duration', '0.2s');
+        
+        // Add mobile-specific scroll behavior
+        const smoothScrollElements = document.querySelectorAll('a[href^="#"]');
+        smoothScrollElements.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
     }
 }); 
