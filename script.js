@@ -43,14 +43,20 @@ function generateSubjectInputs(className) {
 
     let html = `
         <div class="subject-input">
-            <h3>Enter Marks for Each Subject (out of 100)</h3>
+            <h3>Enter Marks for Each Subject</h3>
+            <div class="marks-header">
+                <span>Subject</span>
+                <span>Term Marks (out of 100)</span>
+                <span>Examination Marks (out of 100)</span>
+            </div>
     `;
 
     subjects.forEach(subject => {
         html += `
             <div class="subject-row">
                 <label>${subject}:</label>
-                <input type="number" min="0" max="100" class="subject-mark" data-subject="${subject}" placeholder="Enter marks" required>
+                <input type="number" min="0" max="100" class="term-mark" data-subject="${subject}" data-type="term" placeholder="Term marks" required>
+                <input type="number" min="0" max="100" class="exam-mark" data-subject="${subject}" data-type="exam" placeholder="Exam marks" required>
             </div>
         `;
     });
@@ -62,17 +68,37 @@ function generateSubjectInputs(className) {
 // Generate result card HTML
 function generateResultCard(formData) {
     const subjects = classSubjects[formData.class] || [];
-    const marks = subjects.map(subject => {
-        const input = document.querySelector(`[data-subject="${subject}"]`);
-        return input ? parseFloat(input.value) || 0 : 0;
+    const totalMarks = parseFloat(formData.totalMarks) || 0;
+    
+    // Collect term and exam marks for each subject
+    const subjectMarks = subjects.map(subject => {
+        const termInput = document.querySelector(`[data-subject="${subject}"][data-type="term"]`);
+        const examInput = document.querySelector(`[data-subject="${subject}"][data-type="exam"]`);
+        
+        const termMarks = termInput ? parseFloat(termInput.value) || 0 : 0;
+        const examMarks = examInput ? parseFloat(examInput.value) || 0 : 0;
+        const averageMarks = (termMarks + examMarks) / 2;
+        const percentage = averageMarks;
+        
+        return {
+            subject,
+            termMarks,
+            examMarks,
+            averageMarks,
+            percentage
+        };
     });
 
-    const averagePercentage = calculateAverage(marks);
-    const overallGrade = calculateGrade(averagePercentage);
+    // Calculate overall statistics
+    const totalTermMarks = subjectMarks.reduce((sum, item) => sum + item.termMarks, 0);
+    const totalExamMarks = subjectMarks.reduce((sum, item) => sum + item.examMarks, 0);
+    const totalAverageMarks = subjectMarks.reduce((sum, item) => sum + item.averageMarks, 0);
+    const overallPercentage = totalAverageMarks / subjects.length;
+    const overallGrade = calculateGrade(overallPercentage);
 
     // Calculate highest and lowest marks
-    const highestMark = Math.max(...marks);
-    const lowestMark = Math.min(...marks);
+    const highestMark = Math.max(...subjectMarks.map(item => item.averageMarks));
+    const lowestMark = Math.min(...subjectMarks.map(item => item.averageMarks));
     const classHighest = Math.round(highestMark);
     const classLowest = Math.round(lowestMark);
 
@@ -120,8 +146,8 @@ function generateResultCard(formData) {
                         <span>${formData.rollNo}</span>
                     </div>
                     <div class="detail-item">
-                        <label>Age:</label>
-                        <span>${formData.age}</span>
+                        <label>Total Marks:</label>
+                        <span>${totalMarks}</span>
                     </div>
                 </div>
             </div>
@@ -133,23 +159,21 @@ function generateResultCard(formData) {
                     <thead>
                         <tr>
                             <th>Subject</th>
-                            <th>Term %</th>
-                            <th>Examination %</th>
+                            <th>Term Marks</th>
+                            <th>Examination Marks</th>
                             <th>Average %</th>
                             <th>Grade</th>
                         </tr>
                     </thead>
                     <tbody>
-                        ${subjects.map((subject, index) => {
-                            const mark = marks[index];
-                            const percentage = mark;
-                            const grade = calculateGrade(percentage);
+                        ${subjectMarks.map(item => {
+                            const grade = calculateGrade(item.percentage);
                             return `
                                 <tr>
-                                    <td>${subject}</td>
-                                    <td>${percentage}%</td>
-                                    <td>${percentage}%</td>
-                                    <td>${percentage}%</td>
+                                    <td>${item.subject}</td>
+                                    <td>${item.termMarks}</td>
+                                    <td>${item.examMarks}</td>
+                                    <td>${item.percentage.toFixed(2)}%</td>
                                     <td>${grade}</td>
                                 </tr>
                             `;
@@ -159,24 +183,28 @@ function generateResultCard(formData) {
 
                 <table class="overall-summary">
                     <tr>
+                        <th>Total Term Marks</th>
+                        <th>Total Exam Marks</th>
                         <th>Overall %</th>
                         <th>Overall Grade</th>
-                        <th>Position in Class</th>
                     </tr>
                     <tr>
-                        <td>${averagePercentage}%</td>
+                        <td>${totalTermMarks}</td>
+                        <td>${totalExamMarks}</td>
+                        <td>${overallPercentage.toFixed(2)}%</td>
                         <td>${overallGrade}</td>
-                        <td>-</td>
                     </tr>
                     <tr>
                         <th>Class Highest %</th>
                         <th>Class Lowest %</th>
                         <th>Class Average %</th>
+                        <th>Position in Class</th>
                     </tr>
                     <tr>
                         <td>${classHighest}%</td>
                         <td>${classLowest}%</td>
-                        <td>${averagePercentage}%</td>
+                        <td>${overallPercentage.toFixed(2)}%</td>
+                        <td>-</td>
                     </tr>
                 </table>
             </div>
@@ -349,7 +377,7 @@ document.addEventListener('DOMContentLoaded', function() {
             studentName: document.getElementById('studentName').value,
             class: document.getElementById('studentClass').value,
             rollNo: document.getElementById('rollNo').value,
-            age: document.getElementById('age').value,
+            totalMarks: document.getElementById('totalMarks').value,
             campusName: document.getElementById('campusName').value,
             academicYear: document.getElementById('academicYear').value,
             section: document.getElementById('section').value,
@@ -357,10 +385,22 @@ document.addEventListener('DOMContentLoaded', function() {
         };
 
         // Validate that all subject marks are entered
-        const subjectInputs = document.querySelectorAll('.subject-mark');
+        const termInputs = document.querySelectorAll('.term-mark');
+        const examInputs = document.querySelectorAll('.exam-mark');
         let allMarksEntered = true;
         
-        subjectInputs.forEach(input => {
+        // Validate term marks
+        termInputs.forEach(input => {
+            if (!input.value || input.value < 0 || input.value > 100) {
+                allMarksEntered = false;
+                input.style.borderColor = 'red';
+            } else {
+                input.style.borderColor = '#e1e5e9';
+            }
+        });
+
+        // Validate exam marks
+        examInputs.forEach(input => {
             if (!input.value || input.value < 0 || input.value > 100) {
                 allMarksEntered = false;
                 input.style.borderColor = 'red';
@@ -370,7 +410,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         if (!allMarksEntered) {
-            alert('Please enter valid marks (0-100) for all subjects.');
+            alert('Please enter valid marks (0-100) for all subjects in both Term and Examination fields.');
             return;
         }
 
@@ -419,7 +459,7 @@ function validateMarks(input) {
 
 // Add real-time validation for mark inputs
 document.addEventListener('input', function(e) {
-    if (e.target.classList.contains('subject-mark')) {
+    if (e.target.classList.contains('term-mark') || e.target.classList.contains('exam-mark')) {
         validateMarks(e.target);
     }
 });
