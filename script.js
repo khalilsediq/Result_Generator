@@ -305,10 +305,23 @@ function downloadPDF() {
     const src = document.getElementById('resultCard');
     if (!src) return;
 
+    // Create an offscreen wrapper approximating A4 width at ~96dpi to avoid huge canvases on mobile
+    const wrapper = document.createElement('div');
+    wrapper.style.position = 'fixed';
+    wrapper.style.left = '0';
+    wrapper.style.top = '0';
+    wrapper.style.width = '794px'; // A4 width at ~96dpi
+    wrapper.style.maxWidth = '794px';
+    wrapper.style.background = '#ffffff';
+    wrapper.style.opacity = '0';
+    wrapper.style.pointerEvents = 'none';
+    wrapper.style.zIndex = '-1';
+
     // Clone the card and apply compact pdf styles
     const clone = src.cloneNode(true);
     clone.classList.add('pdf-export');
-    document.body.appendChild(clone);
+    wrapper.appendChild(clone);
+    document.body.appendChild(wrapper);
 
     const isMobile = window.innerWidth <= 768;
     const opt = {
@@ -316,19 +329,29 @@ function downloadPDF() {
         filename: 'student_result_card.pdf',
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: {
-            scale: isMobile ? 1.5 : 2,
+            scale: isMobile ? 1 : 2,
             useCORS: true,
             letterRendering: true,
-            backgroundColor: '#ffffff'
+            backgroundColor: '#ffffff',
+            scrollX: 0,
+            scrollY: 0,
+            windowWidth: wrapper.offsetWidth,
+            windowHeight: wrapper.offsetHeight
         },
         jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' },
         pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
     };
 
-    // Ensure fonts/images are ready before rendering
-    document.fonts && document.fonts.ready
-        ? document.fonts.ready.then(() => html2pdf().set(opt).from(clone).save().then(() => clone.remove()))
-        : html2pdf().set(opt).from(clone).save().then(() => clone.remove());
+    const render = () => html2pdf().set(opt).from(wrapper).save().then(() => wrapper.remove());
+
+    // Wait a frame for layout; then ensure fonts are ready (if supported)
+    requestAnimationFrame(() => {
+        if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(render);
+        } else {
+            render();
+        }
+    });
 }
 
 // Download DOCX function
