@@ -302,17 +302,33 @@ function generateResultCard(formData) {
 
 // Download PDF function
 function downloadPDF() {
-    const element = document.getElementById('resultCard');
+    const src = document.getElementById('resultCard');
+    if (!src) return;
+
+    // Clone the card and apply compact pdf styles
+    const clone = src.cloneNode(true);
+    clone.classList.add('pdf-export');
+    document.body.appendChild(clone);
+
+    const isMobile = window.innerWidth <= 768;
     const opt = {
         margin: [0.2, 0.2, 0.2, 0.2],
         filename: 'student_result_card.pdf',
         image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true, letterRendering: true },
+        html2canvas: {
+            scale: isMobile ? 1.5 : 2,
+            useCORS: true,
+            letterRendering: true,
+            backgroundColor: '#ffffff'
+        },
         jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' },
         pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
     };
 
-    html2pdf().set(opt).from(element).save();
+    // Ensure fonts/images are ready before rendering
+    document.fonts && document.fonts.ready
+        ? document.fonts.ready.then(() => html2pdf().set(opt).from(clone).save().then(() => clone.remove()))
+        : html2pdf().set(opt).from(clone).save().then(() => clone.remove());
 }
 
 // Download DOCX function

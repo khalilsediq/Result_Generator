@@ -447,6 +447,65 @@ header p {
     font-size: 1.1rem;
 }
 
+/* PDF export compact styles (applied to the cloned node only) */
+.pdf-export {
+    background: #ffffff;
+}
+
+.pdf-export .result-card {
+    padding: 0;
+}
+
+.pdf-export .result-card-content {
+    border: none;
+    padding: 12px;
+    min-height: auto;
+    font-size: 0.9rem;
+    line-height: 1.35;
+    max-width: 780px;
+    width: 100%;
+}
+
+.pdf-export .result-header,
+.pdf-export .result-details,
+.pdf-export .academic-performance,
+.pdf-export .general-progress,
+.pdf-export .comments-section,
+.pdf-export .comments-signatures {
+    margin-bottom: 16px;
+}
+
+.pdf-export .school-info h2 {
+    font-size: 1.4rem;
+}
+
+.pdf-export .school-name-large {
+    font-size: 1.9rem;
+}
+
+.pdf-export .result-details h3,
+.pdf-export .academic-performance h3,
+.pdf-export .general-progress h3,
+.pdf-export .comments-section h3 {
+    font-size: 1rem;
+}
+
+.pdf-export .performance-table,
+.pdf-export .overall-summary,
+.pdf-export .progress-table {
+    font-size: 0.8rem;
+}
+
+.pdf-export .performance-table th,
+.pdf-export .performance-table td,
+.pdf-export .overall-summary th,
+.pdf-export .overall-summary td,
+.pdf-export .progress-table th,
+.pdf-export .progress-table td {
+    padding: 6px 4px;
+    font-size: 0.78rem;
+}
+
 .grading-key {
     font-size: 1rem;
     color: #666;
