@@ -1171,6 +1171,11 @@ header p {
 
 /* Print Styles - Exact Image Match */
 @media print {
+    @page {
+        size: A4;
+        margin: 8mm;
+    }
+
     body {
         background: white;
     }
@@ -1192,67 +1197,69 @@ header p {
     
     .result-card {
         padding: 0;
-        min-height: 100vh;
+        min-height: auto;
         page-break-after: avoid;
         page-break-inside: avoid;
     }
     
     .result-card-content {
         border: none;
-        padding: 40px;
-        min-height: 100vh;
-        font-size: 1.1rem;
-        line-height: 1.6;
+        padding: 12px;
+        min-height: auto;
+        font-size: 0.9rem;
+        line-height: 1.35;
+        max-width: 100%;
+        width: 100%;
     }
     
-    /* Maintain exact image layout for print */
+    /* Compact spacing for print */
     .result-header {
-        margin-bottom: 30px;
+        margin-bottom: 16px;
     }
     
     .result-details {
-        margin-bottom: 30px;
+        margin-bottom: 16px;
     }
     
     .academic-performance {
-        margin-bottom: 30px;
+        margin-bottom: 16px;
     }
     
     .general-progress {
-        margin-bottom: 30px;
+        margin-bottom: 16px;
     }
     
     .comments-section {
-        margin-bottom: 30px;
+        margin-bottom: 16px;
     }
     
     .comments-signatures {
-        margin-top: 30px;
+        margin-top: 16px;
     }
     
-    /* Exact image font sizes for print */
+    /* Reduced font sizes for print */
     .school-info h2 {
-        font-size: 1.8rem;
+        font-size: 1.4rem;
     }
     
     .school-name-large {
-        font-size: 2.5rem;
+        font-size: 1.9rem;
     }
     
     .result-details h3 {
-        font-size: 1.4rem;
+        font-size: 1.1rem;
     }
     
     .academic-performance h3,
     .general-progress h3,
     .comments-section h3 {
-        font-size: 1.3rem;
+        font-size: 1rem;
     }
     
     .performance-table,
     .overall-summary,
     .progress-table {
-        font-size: 1rem;
+        font-size: 0.8rem;
     }
     
     .performance-table th,
@@ -1261,28 +1268,28 @@ header p {
     .overall-summary td,
     .progress-table th,
     .progress-table td {
-        padding: 10px 8px;
-        font-size: 1rem;
+        padding: 6px 4px;
+        font-size: 0.78rem;
     }
     
     .grading-key {
-        font-size: 0.9rem;
+        font-size: 0.75rem;
     }
     
     .comment-box {
-        min-height: 80px;
-        padding: 10px;
+        min-height: 40px;
+        padding: 6px;
     }
     
     .comment-line label {
-        font-size: 1rem;
+        font-size: 0.85rem;
     }
     
     .signature-line {
-        height: 30px;
+        height: 18px;
     }
     
     .signature-label {
-        font-size: 0.8rem;
+        font-size: 0.7rem;
     }
-} 
+}

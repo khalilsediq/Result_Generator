@@ -304,11 +304,12 @@ function generateResultCard(formData) {
 function downloadPDF() {
     const element = document.getElementById('resultCard');
     const opt = {
-        margin: 1,
+        margin: [0.2, 0.2, 0.2, 0.2],
         filename: 'student_result_card.pdf',
         image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+        html2canvas: { scale: 2, useCORS: true, letterRendering: true },
+        jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' },
+        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
     };
 
     html2pdf().set(opt).from(element).save();
