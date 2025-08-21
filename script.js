@@ -46,8 +46,8 @@ function generateSubjectInputs(className) {
             <h3>Enter Marks for Each Subject</h3>
             <div class="marks-header">
                 <span>Subject</span>
-                <span>Term Marks (out of 100)</span>
-                <span>Examination Marks (out of 100)</span>
+                <span>Term (Obt/Total)</span>
+                <span>Exam (Obt/Total)</span>
             </div>
     `;
 
@@ -55,8 +55,14 @@ function generateSubjectInputs(className) {
         html += `
             <div class="subject-row">
                 <label>${subject}:</label>
-                <input type="number" min="0" max="100" class="term-mark" data-subject="${subject}" data-type="term" placeholder="Term marks" required>
-                <input type="number" min="0" max="100" class="exam-mark" data-subject="${subject}" data-type="exam" placeholder="Exam marks" required>
+                <div class="pair-inputs">
+                    <input type="number" min="0" class="term-obtained" data-subject="${subject}" placeholder="obtained" required>
+                    <input type="number" min="0" class="term-total" data-subject="${subject}" placeholder="total" required>
+                </div>
+                <div class="pair-inputs">
+                    <input type="number" min="0" class="exam-obtained" data-subject="${subject}" placeholder="obtained" required>
+                    <input type="number" min="0" class="exam-total" data-subject="${subject}" placeholder="total" required>
+                </div>
             </div>
         `;
     });
@@ -72,33 +78,48 @@ function generateResultCard(formData) {
     
     // Collect term and exam marks for each subject
     const subjectMarks = subjects.map(subject => {
-        const termInput = document.querySelector(`[data-subject="${subject}"][data-type="term"]`);
-        const examInput = document.querySelector(`[data-subject="${subject}"][data-type="exam"]`);
-        
-        const termMarks = termInput ? parseFloat(termInput.value) || 0 : 0;
-        const examMarks = examInput ? parseFloat(examInput.value) || 0 : 0;
-        const averageMarks = (termMarks + examMarks) / 2;
-        const percentage = averageMarks;
-        
+        const termTotalEl = document.querySelector(`[data-subject="${subject}"].term-total`);
+        const termObtEl = document.querySelector(`[data-subject="${subject}"].term-obtained`);
+        const examTotalEl = document.querySelector(`[data-subject="${subject}"].exam-total`);
+        const examObtEl = document.querySelector(`[data-subject="${subject}"].exam-obtained`);
+
+        const termTotal = termTotalEl ? parseFloat(termTotalEl.value) || 0 : 0;
+        const termObtained = termObtEl ? parseFloat(termObtEl.value) || 0 : 0;
+        const examTotal = examTotalEl ? parseFloat(examTotalEl.value) || 0 : 0;
+        const examObtained = examObtEl ? parseFloat(examObtEl.value) || 0 : 0;
+
+        const termPercent = termTotal > 0 ? (termObtained / termTotal) * 100 : 0;
+        const examPercent = examTotal > 0 ? (examObtained / examTotal) * 100 : 0;
+        const combinedTotal = termTotal + examTotal;
+        const combinedObtained = termObtained + examObtained;
+        const averagePercent = combinedTotal > 0 ? (combinedObtained / combinedTotal) * 100 : 0;
+
         return {
             subject,
-            termMarks,
-            examMarks,
-            averageMarks,
-            percentage
+            termTotal,
+            termObtained,
+            termPercent,
+            examTotal,
+            examObtained,
+            examPercent,
+            averagePercent
         };
     });
 
     // Calculate overall statistics
-    const totalTermMarks = subjectMarks.reduce((sum, item) => sum + item.termMarks, 0);
-    const totalExamMarks = subjectMarks.reduce((sum, item) => sum + item.examMarks, 0);
-    const totalAverageMarks = subjectMarks.reduce((sum, item) => sum + item.averageMarks, 0);
-    const overallPercentage = totalAverageMarks / subjects.length;
+    const totalTermObtained = subjectMarks.reduce((sum, item) => sum + item.termObtained, 0);
+    const totalTermTotal = subjectMarks.reduce((sum, item) => sum + item.termTotal, 0);
+    const totalExamObtained = subjectMarks.reduce((sum, item) => sum + item.examObtained, 0);
+    const totalExamTotal = subjectMarks.reduce((sum, item) => sum + item.examTotal, 0);
+    const grandObtained = totalTermObtained + totalExamObtained;
+    const grandTotal = totalTermTotal + totalExamTotal;
+    const overallPercentage = grandTotal > 0 ? (grandObtained / grandTotal) * 100 : 0;
     const overallGrade = calculateGrade(overallPercentage);
 
     // Calculate highest and lowest marks
-    const highestMark = Math.max(...subjectMarks.map(item => item.averageMarks));
-    const lowestMark = Math.min(...subjectMarks.map(item => item.averageMarks));
+    const averagePercents = subjectMarks.map(item => item.averagePercent);
+    const highestMark = averagePercents.length ? Math.max(...averagePercents) : 0;
+    const lowestMark = averagePercents.length ? Math.min(...averagePercents) : 0;
     const classHighest = Math.round(highestMark);
     const classLowest = Math.round(lowestMark);
 
@@ -106,15 +127,7 @@ function generateResultCard(formData) {
         <div class="result-card-content">
             <!-- Header Section -->
             <div class="result-header">
-                <div class="school-branding">
-                    <div class="school-logo">@</div>
-                    <div class="school-info">
-                        <h2>The Smart School</h2>
-                        <p>Tomorrow is our Destiny</p>
-                        <p>A Project of The City School</p>
-                    </div>
-                </div>
-                <div class="school-name-large">The Smart School</div>
+                <div class="school-name-large">The Smart school</div>
             </div>
 
             <!-- Result Details -->
@@ -159,21 +172,21 @@ function generateResultCard(formData) {
                     <thead>
                         <tr>
                             <th>Subject</th>
-                            <th>Term Marks</th>
-                            <th>Examination Marks</th>
+                            <th>Term (Obt/Total)</th>
+                            <th>Exam (Obt/Total)</th>
                             <th>Average %</th>
                             <th>Grade</th>
                         </tr>
                     </thead>
                     <tbody>
                         ${subjectMarks.map(item => {
-                            const grade = calculateGrade(item.percentage);
+                            const grade = calculateGrade(item.averagePercent);
                             return `
                                 <tr>
                                     <td>${item.subject}</td>
-                                    <td>${item.termMarks}</td>
-                                    <td>${item.examMarks}</td>
-                                    <td>${item.percentage.toFixed(2)}%</td>
+                                    <td>${item.termObtained} / ${item.termTotal} (${item.termPercent.toFixed(2)}%)</td>
+                                    <td>${item.examObtained} / ${item.examTotal} (${item.examPercent.toFixed(2)}%)</td>
+                                    <td>${item.averagePercent.toFixed(2)}%</td>
                                     <td>${grade}</td>
                                 </tr>
                             `;
@@ -183,14 +196,14 @@ function generateResultCard(formData) {
 
                 <table class="overall-summary">
                     <tr>
-                        <th>Total Term Marks</th>
-                        <th>Total Exam Marks</th>
+                        <th>Total Term</th>
+                        <th>Total Exam</th>
                         <th>Overall %</th>
                         <th>Overall Grade</th>
                     </tr>
                     <tr>
-                        <td>${totalTermMarks}</td>
-                        <td>${totalExamMarks}</td>
+                        <td>${totalTermObtained} / ${totalTermTotal}</td>
+                        <td>${totalExamObtained} / ${totalExamTotal}</td>
                         <td>${overallPercentage.toFixed(2)}%</td>
                         <td>${overallGrade}</td>
                     </tr>
@@ -384,33 +397,43 @@ document.addEventListener('DOMContentLoaded', function() {
             term: document.getElementById('term').value
         };
 
-        // Validate that all subject marks are entered
-        const termInputs = document.querySelectorAll('.term-mark');
-        const examInputs = document.querySelectorAll('.exam-mark');
+        // Validate that all subject marks are entered (obtained <= total and totals > 0)
+        const termTotals = document.querySelectorAll('.term-total');
+        const termObtained = document.querySelectorAll('.term-obtained');
+        const examTotals = document.querySelectorAll('.exam-total');
+        const examObtained = document.querySelectorAll('.exam-obtained');
         let allMarksEntered = true;
         
-        // Validate term marks
-        termInputs.forEach(input => {
-            if (!input.value || input.value < 0 || input.value > 100) {
+        // Validate term totals and obtained
+        termTotals.forEach((input, idx) => {
+            const total = parseFloat(input.value);
+            const obt = parseFloat(termObtained[idx].value);
+            if (!input.value || total <= 0 || isNaN(total) || !termObtained[idx].value || isNaN(obt) || obt < 0 || obt > total) {
                 allMarksEntered = false;
                 input.style.borderColor = 'red';
+                termObtained[idx].style.borderColor = 'red';
             } else {
                 input.style.borderColor = '#e1e5e9';
+                termObtained[idx].style.borderColor = '#e1e5e9';
             }
         });
 
-        // Validate exam marks
-        examInputs.forEach(input => {
-            if (!input.value || input.value < 0 || input.value > 100) {
+        // Validate exam totals and obtained
+        examTotals.forEach((input, idx) => {
+            const total = parseFloat(input.value);
+            const obt = parseFloat(examObtained[idx].value);
+            if (!input.value || total <= 0 || isNaN(total) || !examObtained[idx].value || isNaN(obt) || obt < 0 || obt > total) {
                 allMarksEntered = false;
                 input.style.borderColor = 'red';
+                examObtained[idx].style.borderColor = 'red';
             } else {
                 input.style.borderColor = '#e1e5e9';
+                examObtained[idx].style.borderColor = '#e1e5e9';
             }
         });
 
         if (!allMarksEntered) {
-            alert('Please enter valid marks (0-100) for all subjects in both Term and Examination fields.');
+            alert('Please enter valid totals and obtained marks for all subjects. Obtained must be 0 to Total, and Totals must be greater than 0.');
             return;
         }
 
@@ -446,21 +469,41 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Add some utility functions for better user experience
-function validateMarks(input) {
-    const value = parseFloat(input.value);
-    if (value < 0 || value > 100) {
-        input.style.borderColor = 'red';
-        return false;
-    } else {
-        input.style.borderColor = '#e1e5e9';
-        return true;
+function validateTotal(input) {
+    const total = parseFloat(input.value);
+    const isValid = !isNaN(total) && total > 0;
+    input.style.borderColor = isValid ? '#e1e5e9' : 'red';
+    return isValid;
+}
+
+function validateObtained(input) {
+    const obtained = parseFloat(input.value);
+    const subject = input.getAttribute('data-subject');
+    const isTerm = input.classList.contains('term-obtained');
+    const totalSelector = isTerm ? `.term-total[data-subject="${subject}"]` : `.exam-total[data-subject="${subject}"]`;
+    const totalInput = document.querySelector(totalSelector);
+    const total = totalInput ? parseFloat(totalInput.value) : NaN;
+    const isValid = !isNaN(obtained) && !isNaN(total) && total > 0 && obtained >= 0 && obtained <= total;
+    input.style.borderColor = isValid ? '#e1e5e9' : 'red';
+    if (totalInput) {
+        totalInput.style.borderColor = (!isNaN(total) && total > 0) ? '#e1e5e9' : 'red';
     }
+    return isValid;
 }
 
 // Add real-time validation for mark inputs
 document.addEventListener('input', function(e) {
-    if (e.target.classList.contains('term-mark') || e.target.classList.contains('exam-mark')) {
-        validateMarks(e.target);
+    const target = e.target;
+    if (target.classList.contains('term-total') || target.classList.contains('exam-total')) {
+        validateTotal(target);
+        // Also revalidate the corresponding obtained field if present
+        const subject = target.getAttribute('data-subject');
+        const obtainedSelector = target.classList.contains('term-total') ? `.term-obtained[data-subject="${subject}"]` : `.exam-obtained[data-subject="${subject}"]`;
+        const obtainedInput = document.querySelector(obtainedSelector);
+        if (obtainedInput) validateObtained(obtainedInput);
+    }
+    if (target.classList.contains('term-obtained') || target.classList.contains('exam-obtained')) {
+        validateObtained(target);
     }
 });
 

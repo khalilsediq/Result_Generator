@@ -38,6 +38,7 @@ header h1 {
     font-size: 2.5rem;
     margin-bottom: 10px;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    font-family: 'Edwardian Script ITC', 'Brush Script MT', cursive;
 }
 
 header p {
@@ -154,6 +155,26 @@ header p {
     font-size: 14px;
     text-align: center;
     transition: border-color 0.3s ease;
+    width: 100%;
+}
+
+/* Helper to place obtained/total fields side-by-side within a grid cell */
+.pair-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+/* Prevent table overflow on small screens */
+.academic-performance,
+.general-progress {
+    overflow-x: auto;
+}
+
+.performance-table,
+.overall-summary,
+.progress-table {
+    min-width: 600px;
 }
 
 /* Button Styles */
@@ -286,7 +307,7 @@ header p {
 
 .school-name-large {
     font-size: 3rem;
-    font-family: 'Brush Script MT', cursive;
+    font-family: 'Edwardian Script ITC', 'Brush Script MT', cursive;
     color: #333;
     text-align: right;
 }
@@ -602,6 +623,11 @@ header p {
         gap: 10px;
         padding: 15px;
     }
+
+    /* Keep paired inputs side-by-side on tablets */
+    .pair-inputs {
+        grid-template-columns: 1fr 1fr;
+    }
     
     /* Maintain exact image layout on mobile */
     .result-card {
@@ -787,6 +813,11 @@ header p {
     .btn {
         padding: 12px 16px;
         font-size: 14px;
+    }
+
+    /* Stack obtained/total vertically on small phones */
+    .pair-inputs {
+        grid-template-columns: 1fr;
     }
     
     /* Single page result card for small mobile */
@@ -986,6 +1017,11 @@ header p {
     
     .grading-key span {
         margin-bottom: 3px;
+    }
+
+    /* Maintain stacked layout for the smallest devices */
+    .pair-inputs {
+        grid-template-columns: 1fr;
     }
 }
 
